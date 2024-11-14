@@ -1,6 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
-import GradientBackground from "../components/GradientBackground";
 
 export default function History() {
   return (
@@ -17,15 +16,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     paddingTop: 20,
+    backgroundColor: "#A8E890",
   },
   title: {
     fontSize: 24,
     fontWeight: "bold",
-    color: "#333",
+    color: "#fff",
     marginBottom: 20,
   },
   text: {
     fontSize: 16,
-    color: "#333",
+    color: "#fff",
   },
 });

@@ -4,7 +4,6 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import Dashboard from "./screens/Dashboard";
 import History from "./screens/History";
-import LinearGradient from "./components/GradientBackground";
 
 const Drawer = createDrawerNavigator();
 
@@ -15,7 +14,9 @@ export default function App() {
       <Drawer.Navigator
         initialRouteName="Dashboard"
         screenOptions={{
-          headerTransparent: true,
+          headerStyle: {
+            backgroundColor: "#A8E890",
+          },
           headerTitleStyle: {
             color: "#fff",
           },
@@ -26,38 +27,12 @@ export default function App() {
           drawerActiveTintColor: "#fff",
           drawerInactiveTintColor: "#557C55",
           sceneContainerStyle: {
-            backgroundColor: "#7FB77E",
+            backgroundColor: "#A8E890",
           },
         }}
       >
-        <Drawer.Screen
-          name="Dashboard"
-          component={Dashboard}
-          options={{
-            headerBackground: () => (
-              <LinearGradient
-                colors={["#A8E890", "#7FB77E"]}
-                style={{ flex: 1 }}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 0 }}
-              />
-            ),
-          }}
-        />
-        <Drawer.Screen
-          name="History"
-          component={History}
-          options={{
-            headerBackground: () => (
-              <LinearGradient
-                colors={["#A8E890", "#7FB77E"]}
-                style={{ flex: 1 }}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 0 }}
-              />
-            ),
-          }}
-        />
+        <Drawer.Screen name="Dashboard" component={Dashboard} />
+        <Drawer.Screen name="History" component={History} />
       </Drawer.Navigator>
     </NavigationContainer>
   );
