@@ -1,15 +1,34 @@
 import { StyleSheet, Text, View, TextInput, Pressable } from "react-native";
 import React, { useState } from "react";
 import { MaterialIcons } from "@expo/vector-icons";
+import { saveExpense } from "../utils/storage";
 
 export default function AddExpense({ navigation }) {
   const [amount, setAmount] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
 
-  const handleSubmit = () => {
-    // TODO: Add expense logic here
-    navigation.goBack();
+  const handleSubmit = async () => {
+    if (!amount || !description || !category) {
+      // Add your preferred validation/error message here
+      return;
+    }
+
+    try {
+      const newExpense = {
+        amount: parseFloat(amount),
+        description,
+        category,
+        date: new Date().toISOString(),
+        id: Date.now().toString(),
+      };
+
+      await saveExpense(newExpense);
+      navigation.goBack();
+    } catch (error) {
+      console.error("Error adding expense:", error);
+      // Add your preferred error handling here
+    }
   };
 
   return (

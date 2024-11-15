@@ -1,26 +1,24 @@
 import { StyleSheet, Text, View, FlatList, Pressable } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { MaterialIcons } from "@expo/vector-icons";
+import { getExpenses } from "../utils/storage";
+import { useFocusEffect } from "@react-navigation/native";
 
 export default function History() {
-  // Dummy data - later replace with real data from your state management
-  const [transactions] = useState([
-    {
-      id: "1",
-      date: "2024-03-20",
-      amount: 25.99,
-      category: "Food",
-      description: "Lunch at restaurant",
-    },
-    {
-      id: "2",
-      date: "2024-03-19",
-      amount: 45.0,
-      category: "Transport",
-      description: "Fuel",
-    },
-    // Add more dummy data...
-  ]);
+  const [transactions, setTransactions] = useState([]);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      loadTransactions();
+    }, [])
+  );
+
+  const loadTransactions = async () => {
+    const expenses = await getExpenses();
+    setTransactions(
+      expenses.sort((a, b) => new Date(b.date) - new Date(a.date))
+    );
+  };
 
   const renderTransaction = ({ item }) => (
     <Pressable
@@ -59,14 +57,23 @@ export default function History() {
         </Pressable>
       </View>
 
-      {/* Transactions List */}
-      <FlatList
-        data={transactions}
-        renderItem={renderTransaction}
-        keyExtractor={(item) => item.id}
-        contentContainerStyle={styles.listContainer}
-        showsVerticalScrollIndicator={false}
-      />
+      {transactions.length === 0 ? (
+        <View style={styles.emptyState}>
+          <MaterialIcons name="receipt-long" size={48} color="#fff" />
+          <Text style={styles.emptyStateText}>No expenses yet</Text>
+          <Text style={styles.emptyStateSubtext}>
+            Add your first expense to start tracking
+          </Text>
+        </View>
+      ) : (
+        <FlatList
+          data={transactions}
+          renderItem={renderTransaction}
+          keyExtractor={(item) => item.id}
+          contentContainerStyle={styles.listContainer}
+          showsVerticalScrollIndicator={false}
+        />
+      )}
     </View>
   );
 }
@@ -135,5 +142,23 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     color: "#333",
+  },
+  emptyState: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    paddingBottom: 100,
+  },
+  emptyStateText: {
+    color: "#fff",
+    fontSize: 20,
+    fontWeight: "bold",
+    marginTop: 16,
+  },
+  emptyStateSubtext: {
+    color: "#fff",
+    fontSize: 16,
+    opacity: 0.8,
+    marginTop: 8,
   },
 });
