@@ -1,10 +1,15 @@
 import { StyleSheet, Text, View, Pressable, ScrollView } from "react-native";
 import React from "react";
 import { MaterialIcons } from "@expo/vector-icons";
+import WeeklySpendingChart from "../components/charts/WeeklySpendingChart";
+import CategorySpendingChart from "../components/charts/CategorySpendingChart";
 
 export default function Dashboard({ navigation }) {
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView
+      style={styles.container}
+      contentContainerStyle={styles.contentContainer}
+    >
       {/* Summary Cards */}
       <View style={styles.summaryContainer}>
         <View style={styles.card}>
@@ -19,6 +24,10 @@ export default function Dashboard({ navigation }) {
           <Text style={styles.period}>From $3,000</Text>
         </View>
       </View>
+
+      {/* Charts */}
+      <WeeklySpendingChart />
+      <CategorySpendingChart />
 
       {/* Recent Transactions */}
       <View style={styles.section}>
@@ -53,7 +62,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#A8E890",
+  },
+  contentContainer: {
     padding: 16,
+    paddingBottom: 32,
   },
   summaryContainer: {
     flexDirection: "row",
@@ -125,6 +137,7 @@ const styles = StyleSheet.create({
     padding: 16,
     borderRadius: 12,
     marginTop: 8,
+    marginBottom: 16,
   },
   addButtonText: {
     color: "#A8E890",
