@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { MaterialIcons } from "@expo/vector-icons";
 import { getExpenses } from "../utils/storage";
 import { useFocusEffect } from "@react-navigation/native";
-
+import Colors from "../constants/Colors";
 export default function History() {
   const [transactions, setTransactions] = useState([]);
 
@@ -48,18 +48,18 @@ export default function History() {
       {/* Filter/Sort Options */}
       <View style={styles.filterContainer}>
         <Pressable style={styles.filterButton}>
-          <MaterialIcons name="filter-list" size={24} color="#fff" />
+          <MaterialIcons name="filter-list" size={24} color={Colors.white} />
           <Text style={styles.filterText}>Filter</Text>
         </Pressable>
         <Pressable style={styles.filterButton}>
-          <MaterialIcons name="sort" size={24} color="#fff" />
+          <MaterialIcons name="sort" size={24} color={Colors.white} />
           <Text style={styles.filterText}>Sort</Text>
         </Pressable>
       </View>
 
       {transactions.length === 0 ? (
         <View style={styles.emptyState}>
-          <MaterialIcons name="receipt-long" size={48} color="#fff" />
+          <MaterialIcons name="receipt-long" size={48} color={Colors.white} />
           <Text style={styles.emptyStateText}>No expenses yet</Text>
           <Text style={styles.emptyStateSubtext}>
             Add your first expense to start tracking
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 16,
     paddingTop: 20,
-    backgroundColor: "#A8E890",
+    backgroundColor: Colors.primary,
   },
   filterContainer: {
     flexDirection: "row",
@@ -93,20 +93,20 @@ const styles = StyleSheet.create({
   filterButton: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "rgba(255,255,255,0.2)",
+    backgroundColor: Colors.overlay20,
     padding: 10,
     borderRadius: 8,
     gap: 8,
   },
   filterText: {
-    color: "#fff",
+    color: Colors.textPrimary,
     fontSize: 16,
   },
   listContainer: {
     gap: 12,
   },
   transactionCard: {
-    backgroundColor: "rgba(255,255,255,0.9)",
+    backgroundColor: Colors.overlay40,
     borderRadius: 12,
     padding: 16,
     flexDirection: "row",
@@ -122,18 +122,18 @@ const styles = StyleSheet.create({
   },
   date: {
     fontSize: 14,
-    color: "#666",
+    color: Colors.textSecondary,
     marginBottom: 4,
   },
   description: {
     fontSize: 16,
     fontWeight: "600",
-    color: "#333",
+    color: Colors.textPrimary,
     marginBottom: 4,
   },
   category: {
     fontSize: 14,
-    color: "#666",
+    color: Colors.textSecondary,
   },
   cardRight: {
     marginLeft: 16,
@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
   amount: {
     fontSize: 18,
     fontWeight: "bold",
-    color: "#333",
+    color: Colors.textPrimary,
   },
   emptyState: {
     flex: 1,
@@ -150,13 +150,13 @@ const styles = StyleSheet.create({
     paddingBottom: 100,
   },
   emptyStateText: {
-    color: "#fff",
+    color: Colors.white,
     fontSize: 20,
     fontWeight: "bold",
     marginTop: 16,
   },
   emptyStateSubtext: {
-    color: "#fff",
+    color: Colors.white,
     fontSize: 16,
     opacity: 0.8,
     marginTop: 8,

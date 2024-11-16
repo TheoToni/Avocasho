@@ -2,6 +2,7 @@ import { StyleSheet, Text, View, TextInput, Pressable } from "react-native";
 import React, { useState } from "react";
 import { MaterialIcons } from "@expo/vector-icons";
 import { saveExpense } from "../utils/storage";
+import Colors from "../constants/Colors";
 
 export default function AddExpense({ navigation }) {
   const [amount, setAmount] = useState("");
@@ -88,12 +89,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: "#A8E890",
+    backgroundColor: Colors.primary,
   },
   title: {
     fontSize: 24,
     fontWeight: "bold",
-    color: "#fff",
+    color: Colors.white,
     marginBottom: 30,
   },
   form: {
@@ -103,26 +104,26 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   label: {
-    color: "#fff",
+    color: Colors.white,
     fontSize: 16,
     marginBottom: 8,
   },
   input: {
-    backgroundColor: "rgba(255,255,255,0.2)",
+    backgroundColor: Colors.overlay20,
     borderRadius: 8,
     padding: 12,
-    color: "#fff",
+    color: Colors.white,
     fontSize: 16,
   },
   submitButton: {
-    backgroundColor: "#fff",
+    backgroundColor: Colors.white,
     padding: 16,
     borderRadius: 8,
     alignItems: "center",
     marginTop: 20,
   },
   submitButtonText: {
-    color: "#A8E890",
+    color: Colors.primary,
     fontSize: 16,
     fontWeight: "bold",
   },

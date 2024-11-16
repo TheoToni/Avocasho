@@ -5,6 +5,7 @@ import WeeklySpendingChart from "../components/charts/WeeklySpendingChart";
 import CategorySpendingChart from "../components/charts/CategorySpendingChart";
 import { getExpenses } from "../utils/storage";
 import { useFocusEffect } from "@react-navigation/native";
+import Colors from "../constants/Colors";
 
 export default function Dashboard({ navigation }) {
   const [totalSpent, setTotalSpent] = useState(0);
@@ -71,7 +72,11 @@ export default function Dashboard({ navigation }) {
         ) : (
           recentTransactions.map((transaction) => (
             <View key={transaction.id} style={styles.transaction}>
-              <MaterialIcons name="shopping-bag" size={24} color="#fff" />
+              <MaterialIcons
+                name="shopping-bag"
+                size={24}
+                color={Colors.white}
+              />
               <View style={styles.transactionDetails}>
                 <Text style={styles.transactionTitle}>
                   {transaction.description}
@@ -96,7 +101,7 @@ export default function Dashboard({ navigation }) {
         ]}
         onPress={() => navigation.navigate("AddExpense")}
       >
-        <MaterialIcons name="add" size={24} color="#A8E890" />
+        <MaterialIcons name="add" size={24} color={Colors.primary} />
         <Text style={styles.addButtonText}>Add New Expense</Text>
       </Pressable>
     </ScrollView>
@@ -106,7 +111,7 @@ export default function Dashboard({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#A8E890",
+    backgroundColor: Colors.primary,
   },
   contentContainer: {
     padding: 16,
@@ -118,24 +123,24 @@ const styles = StyleSheet.create({
     marginBottom: 24,
   },
   card: {
-    backgroundColor: "rgba(255,255,255,0.2)",
+    backgroundColor: Colors.overlay20,
     padding: 16,
     borderRadius: 12,
     width: "48%",
   },
   cardTitle: {
-    color: "#fff",
+    color: Colors.white,
     fontSize: 14,
     opacity: 0.8,
   },
   amount: {
-    color: "#fff",
+    color: Colors.white,
     fontSize: 24,
     fontWeight: "bold",
     marginVertical: 8,
   },
   period: {
-    color: "#fff",
+    color: Colors.white,
     fontSize: 12,
     opacity: 0.8,
   },
@@ -143,7 +148,7 @@ const styles = StyleSheet.create({
     marginBottom: 24,
   },
   sectionTitle: {
-    color: "#fff",
+    color: Colors.white,
     fontSize: 18,
     fontWeight: "bold",
     marginBottom: 16,
@@ -151,7 +156,7 @@ const styles = StyleSheet.create({
   transaction: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "rgba(255,255,255,0.2)",
+    backgroundColor: Colors.overlay20,
     padding: 16,
     borderRadius: 12,
     marginBottom: 8,
@@ -161,16 +166,16 @@ const styles = StyleSheet.create({
     marginLeft: 12,
   },
   transactionTitle: {
-    color: "#fff",
+    color: Colors.white,
     fontSize: 16,
   },
   transactionDate: {
-    color: "#fff",
+    color: Colors.white,
     opacity: 0.8,
     fontSize: 12,
   },
   transactionAmount: {
-    color: "#fff",
+    color: Colors.white,
     fontSize: 16,
     fontWeight: "bold",
   },
@@ -178,14 +183,14 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#fff",
+    backgroundColor: Colors.white,
     padding: 16,
     borderRadius: 12,
     marginTop: 8,
     marginBottom: 16,
   },
   addButtonText: {
-    color: "#A8E890",
+    color: Colors.primary,
     fontSize: 16,
     fontWeight: "bold",
     marginLeft: 8,
@@ -195,7 +200,7 @@ const styles = StyleSheet.create({
     transform: [{ scale: 0.98 }],
   },
   noTransactions: {
-    color: "#fff",
+    color: Colors.white,
     textAlign: "center",
     padding: 20,
     opacity: 0.8,

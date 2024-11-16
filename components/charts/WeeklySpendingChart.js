@@ -3,6 +3,7 @@ import { View, Text, Dimensions } from "react-native";
 import { LineChart } from "react-native-chart-kit";
 import { getExpenses } from "../../utils/storage";
 import { useFocusEffect } from "@react-navigation/native";
+import Colors from "../../constants/Colors";
 
 export default function WeeklySpendingChart() {
   const [weeklyData, setWeeklyData] = useState({
@@ -61,9 +62,9 @@ export default function WeeklySpendingChart() {
           width={Dimensions.get("window").width - 32}
           height={220}
           chartConfig={{
-            backgroundColor: "#A8E890",
-            backgroundGradientFrom: "#A8E890",
-            backgroundGradientTo: "#A8E890",
+            backgroundColor: Colors.primary,
+            backgroundGradientFrom: Colors.primary,
+            backgroundGradientTo: Colors.primary,
             decimalPlaces: 0,
             color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
             labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
@@ -73,7 +74,7 @@ export default function WeeklySpendingChart() {
             propsForDots: {
               r: "6",
               strokeWidth: "2",
-              stroke: "#A8E890",
+              stroke: Colors.primary,
             },
           }}
           bezier
@@ -94,12 +95,12 @@ export default function WeeklySpendingChart() {
 const styles = {
   section: {
     marginBottom: 24,
-    backgroundColor: "rgba(255,255,255,0.2)",
+    backgroundColor: Colors.overlay20,
     borderRadius: 16,
     padding: 16,
   },
   sectionTitle: {
-    color: "#fff",
+    color: Colors.white,
     fontSize: 18,
     fontWeight: "bold",
     marginBottom: 16,
@@ -110,7 +111,7 @@ const styles = {
     alignItems: "center",
   },
   noDataText: {
-    color: "#fff",
+    color: Colors.white,
     fontSize: 16,
     opacity: 0.8,
   },
