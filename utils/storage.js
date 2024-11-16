@@ -63,3 +63,15 @@ export const getBudget = async () => {
     return 3000; // Return default if error
   }
 };
+
+export const deleteExpense = async (id) => {
+  try {
+    const expenses = await getExpenses();
+    const updatedExpenses = expenses.filter((expense) => expense.id !== id);
+    await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(updatedExpenses));
+    return true;
+  } catch (error) {
+    console.error("Error deleting expense:", error);
+    return false;
+  }
+};

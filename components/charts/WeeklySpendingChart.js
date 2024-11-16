@@ -57,32 +57,37 @@ export default function WeeklySpendingChart() {
     <View style={styles.section}>
       <Text style={styles.sectionTitle}>Weekly Spending</Text>
       {weeklyData.datasets[0].data.some((value) => value > 0) ? (
-        <LineChart
-          data={weeklyData}
-          width={Dimensions.get("window").width - 32}
-          height={220}
-          chartConfig={{
-            backgroundColor: Colors.background,
-            backgroundGradientFrom: Colors.background,
-            backgroundGradientTo: Colors.background,
-            decimalPlaces: 0,
-            color: (opacity = 1) => `rgba(51, 51, 51, ${opacity})`,
-            labelColor: (opacity = 1) => `rgba(51, 51, 51, ${opacity})`,
-            style: {
+        <View style={styles.chartContainer}>
+          <LineChart
+            data={weeklyData}
+            width={Dimensions.get("window").width - 16}
+            height={220}
+            chartConfig={{
+              backgroundColor: Colors.background,
+              backgroundGradientFrom: Colors.background,
+              backgroundGradientTo: Colors.background,
+              decimalPlaces: 0,
+              color: (opacity = 1) => `rgba(51, 51, 51, ${opacity})`,
+              labelColor: (opacity = 1) => `rgba(51, 51, 51, ${opacity})`,
+              style: {
+                borderRadius: 16,
+              },
+              propsForDots: {
+                r: "6",
+                strokeWidth: "2",
+                stroke: Colors.primary,
+              },
+              paddingRight: 0,
+              paddingLeft: -16,
+            }}
+            bezier
+            style={{
+              marginVertical: 8,
+              marginLeft: -30,
               borderRadius: 16,
-            },
-            propsForDots: {
-              r: "6",
-              strokeWidth: "2",
-              stroke: Colors.primary,
-            },
-          }}
-          bezier
-          style={{
-            marginVertical: 8,
-            borderRadius: 16,
-          }}
-        />
+            }}
+          />
+        </View>
       ) : (
         <View style={styles.noDataContainer}>
           <Text style={styles.noDataText}>No expenses this week</Text>
@@ -119,5 +124,8 @@ const styles = {
     color: Colors.textSecondary,
     fontSize: 16,
     opacity: 0.8,
+  },
+  chartContainer: {
+    marginHorizontal: -8,
   },
 };

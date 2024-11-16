@@ -1,9 +1,17 @@
-import { StyleSheet, Text, View, Pressable, ScrollView } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Pressable,
+  ScrollView,
+  Alert,
+  TouchableOpacity,
+} from "react-native";
 import React, { useState, useEffect } from "react";
 import { MaterialIcons } from "@expo/vector-icons";
 import WeeklySpendingChart from "../components/charts/WeeklySpendingChart";
 import CategorySpendingChart from "../components/charts/CategorySpendingChart";
-import { getExpenses, getBudget } from "../utils/storage";
+import { getExpenses, getBudget, deleteExpense } from "../utils/storage";
 import { useFocusEffect } from "@react-navigation/native";
 import Colors from "../constants/Colors";
 
@@ -45,6 +53,63 @@ export default function Dashboard({ navigation }) {
     setRecentTransactions(expenses.slice(0, 5)); // Get 5 most recent transactions
   };
 
+  const handleDeleteTransaction = (transaction) => {
+    Alert.alert(
+      "Delete Transaction",
+      "Are you sure you want to delete this transaction?",
+      [
+        {
+          text: "Cancel",
+          style: "cancel",
+        },
+        {
+          text: "Delete",
+          style: "destructive",
+          onPress: async () => {
+            const success = await deleteExpense(transaction.id);
+            if (success) {
+              loadDashboardData(); // Refresh the data
+            } else {
+              Alert.alert("Error", "Failed to delete transaction");
+            }
+          },
+        },
+      ]
+    );
+  };
+
+  const renderTransaction = (transaction) => (
+    <TouchableOpacity
+      key={transaction.id}
+      style={styles.transaction}
+      onLongPress={() => handleDeleteTransaction(transaction)}
+      delayLongPress={500}
+    >
+      <MaterialIcons name="shopping-bag" size={24} color={Colors.textPrimary} />
+      <View style={styles.transactionDetails}>
+        <Text style={styles.transactionTitle}>{transaction.description}</Text>
+        <Text style={styles.transactionDate}>
+          {new Date(transaction.date).toLocaleDateString()}
+        </Text>
+      </View>
+      <View style={styles.transactionRight}>
+        <Text style={styles.transactionAmount}>
+          -${transaction.amount.toFixed(2)}
+        </Text>
+        <TouchableOpacity
+          onPress={() => handleDeleteTransaction(transaction)}
+          style={styles.deleteButton}
+        >
+          <MaterialIcons
+            name="delete-outline"
+            size={24}
+            color={Colors.textSecondary}
+          />
+        </TouchableOpacity>
+      </View>
+    </TouchableOpacity>
+  );
+
   return (
     <ScrollView
       style={styles.container}
@@ -75,26 +140,7 @@ export default function Dashboard({ navigation }) {
         {recentTransactions.length === 0 ? (
           <Text style={styles.noTransactions}>No transactions yet</Text>
         ) : (
-          recentTransactions.map((transaction) => (
-            <View key={transaction.id} style={styles.transaction}>
-              <MaterialIcons
-                name="shopping-bag"
-                size={24}
-                color={Colors.white}
-              />
-              <View style={styles.transactionDetails}>
-                <Text style={styles.transactionTitle}>
-                  {transaction.description}
-                </Text>
-                <Text style={styles.transactionDate}>
-                  {new Date(transaction.date).toLocaleDateString()}
-                </Text>
-              </View>
-              <Text style={styles.transactionAmount}>
-                -${transaction.amount.toFixed(2)}
-              </Text>
-            </View>
-          ))
+          recentTransactions.map(renderTransaction)
         )}
       </View>
 
@@ -217,5 +263,14 @@ const styles = StyleSheet.create({
     textAlign: "center",
     padding: 20,
     opacity: 0.8,
+  },
+  transactionRight: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 12,
+  },
+  deleteButton: {
+    padding: 8,
+    marginLeft: 4,
   },
 });
