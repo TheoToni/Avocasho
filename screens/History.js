@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 16,
     paddingTop: 20,
-    backgroundColor: Colors.primary,
+    backgroundColor: Colors.background,
   },
   filterContainer: {
     flexDirection: "row",
@@ -93,25 +93,30 @@ const styles = StyleSheet.create({
   filterButton: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: Colors.overlay20,
+    backgroundColor: Colors.primary,
     padding: 10,
     borderRadius: 8,
     gap: 8,
   },
   filterText: {
-    color: Colors.textPrimary,
+    color: Colors.white,
     fontSize: 16,
   },
   listContainer: {
     gap: 12,
   },
   transactionCard: {
-    backgroundColor: Colors.overlay40,
+    backgroundColor: Colors.white,
     borderRadius: 12,
     padding: 16,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+    shadowColor: Colors.primary,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
   },
   cardPressed: {
     opacity: 0.8,

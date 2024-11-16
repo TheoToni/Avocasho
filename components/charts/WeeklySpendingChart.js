@@ -62,12 +62,12 @@ export default function WeeklySpendingChart() {
           width={Dimensions.get("window").width - 32}
           height={220}
           chartConfig={{
-            backgroundColor: Colors.primary,
-            backgroundGradientFrom: Colors.primary,
-            backgroundGradientTo: Colors.primary,
+            backgroundColor: Colors.background,
+            backgroundGradientFrom: Colors.background,
+            backgroundGradientTo: Colors.background,
             decimalPlaces: 0,
-            color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-            labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+            color: (opacity = 1) => `rgba(51, 51, 51, ${opacity})`,
+            labelColor: (opacity = 1) => `rgba(51, 51, 51, ${opacity})`,
             style: {
               borderRadius: 16,
             },
@@ -95,12 +95,17 @@ export default function WeeklySpendingChart() {
 const styles = {
   section: {
     marginBottom: 24,
-    backgroundColor: Colors.overlay20,
+    backgroundColor: Colors.white,
     borderRadius: 16,
     padding: 16,
+    shadowColor: Colors.primary,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
   },
   sectionTitle: {
-    color: Colors.white,
+    color: Colors.textPrimary,
     fontSize: 18,
     fontWeight: "bold",
     marginBottom: 16,
@@ -111,7 +116,7 @@ const styles = {
     alignItems: "center",
   },
   noDataText: {
-    color: Colors.white,
+    color: Colors.textSecondary,
     fontSize: 16,
     opacity: 0.8,
   },

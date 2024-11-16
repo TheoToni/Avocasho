@@ -89,12 +89,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: Colors.primary,
+    backgroundColor: Colors.background,
   },
   title: {
     fontSize: 24,
     fontWeight: "bold",
-    color: Colors.white,
+    color: Colors.textPrimary,
     marginBottom: 30,
   },
   form: {
@@ -104,26 +104,28 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   label: {
-    color: Colors.white,
+    color: Colors.textPrimary,
     fontSize: 16,
     marginBottom: 8,
   },
   input: {
-    backgroundColor: Colors.overlay20,
+    backgroundColor: Colors.white,
     borderRadius: 8,
     padding: 12,
-    color: Colors.white,
+    color: Colors.textPrimary,
     fontSize: 16,
+    borderWidth: 1,
+    borderColor: Colors.overlay20,
   },
   submitButton: {
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.primary,
     padding: 16,
     borderRadius: 8,
     alignItems: "center",
     marginTop: 20,
   },
   submitButtonText: {
-    color: Colors.primary,
+    color: Colors.white,
     fontSize: 16,
     fontWeight: "bold",
   },

@@ -2,6 +2,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const STORAGE_KEY = "expenses";
 
+export const BUDGET_KEY = "@budget";
+
 export const saveExpense = async (expense) => {
   try {
     const expenses = await AsyncStorage.getItem(STORAGE_KEY);
@@ -39,5 +41,25 @@ export const clearExpenses = async () => {
     await AsyncStorage.removeItem(STORAGE_KEY);
   } catch (error) {
     console.error("Error clearing expenses:", error);
+  }
+};
+
+export const saveBudget = async (amount) => {
+  try {
+    await AsyncStorage.setItem(BUDGET_KEY, amount.toString());
+    return true;
+  } catch (error) {
+    console.error("Error saving budget:", error);
+    return false;
+  }
+};
+
+export const getBudget = async () => {
+  try {
+    const budget = await AsyncStorage.getItem(BUDGET_KEY);
+    return budget ? parseFloat(budget) : 3000; // Default budget is 3000
+  } catch (error) {
+    console.error("Error getting budget:", error);
+    return 3000; // Return default if error
   }
 };

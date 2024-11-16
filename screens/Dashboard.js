@@ -3,13 +3,15 @@ import React, { useState, useEffect } from "react";
 import { MaterialIcons } from "@expo/vector-icons";
 import WeeklySpendingChart from "../components/charts/WeeklySpendingChart";
 import CategorySpendingChart from "../components/charts/CategorySpendingChart";
-import { getExpenses } from "../utils/storage";
+import { getExpenses, getBudget } from "../utils/storage";
 import { useFocusEffect } from "@react-navigation/native";
 import Colors from "../constants/Colors";
 
 export default function Dashboard({ navigation }) {
   const [totalSpent, setTotalSpent] = useState(0);
   const [recentTransactions, setRecentTransactions] = useState([]);
+  const [monthlyBudget, setMonthlyBudget] = useState(3000);
+  const [budgetLeft, setBudgetLeft] = useState(0);
 
   useFocusEffect(
     React.useCallback(() => {
@@ -19,6 +21,8 @@ export default function Dashboard({ navigation }) {
 
   const loadDashboardData = async () => {
     const expenses = await getExpenses();
+    const currentBudget = await getBudget();
+    setMonthlyBudget(currentBudget);
 
     // Calculate total spent this month
     const currentMonth = new Date().getMonth();
@@ -37,6 +41,7 @@ export default function Dashboard({ navigation }) {
     );
 
     setTotalSpent(monthlyTotal);
+    setBudgetLeft(currentBudget - monthlyTotal);
     setRecentTransactions(expenses.slice(0, 5)); // Get 5 most recent transactions
   };
 
@@ -55,8 +60,8 @@ export default function Dashboard({ navigation }) {
 
         <View style={styles.card}>
           <Text style={styles.cardTitle}>Budget Left</Text>
-          <Text style={styles.amount}>$550.00</Text>
-          <Text style={styles.period}>From $3,000</Text>
+          <Text style={styles.amount}>${budgetLeft.toFixed(2)}</Text>
+          <Text style={styles.period}>From ${monthlyBudget.toFixed(2)}</Text>
         </View>
       </View>
 
@@ -111,7 +116,7 @@ export default function Dashboard({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.primary,
+    backgroundColor: Colors.background,
   },
   contentContainer: {
     padding: 16,
@@ -123,32 +128,35 @@ const styles = StyleSheet.create({
     marginBottom: 24,
   },
   card: {
-    backgroundColor: Colors.overlay20,
+    backgroundColor: Colors.white,
     padding: 16,
     borderRadius: 12,
     width: "48%",
+    shadowColor: Colors.primary,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
   },
   cardTitle: {
-    color: Colors.white,
+    color: Colors.textPrimary,
     fontSize: 14,
-    opacity: 0.8,
   },
   amount: {
-    color: Colors.white,
+    color: Colors.textPrimary,
     fontSize: 24,
     fontWeight: "bold",
     marginVertical: 8,
   },
   period: {
-    color: Colors.white,
+    color: Colors.textSecondary,
     fontSize: 12,
-    opacity: 0.8,
   },
   section: {
     marginBottom: 24,
   },
   sectionTitle: {
-    color: Colors.white,
+    color: Colors.textPrimary,
     fontSize: 18,
     fontWeight: "bold",
     marginBottom: 16,
@@ -156,26 +164,31 @@ const styles = StyleSheet.create({
   transaction: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: Colors.overlay20,
+    backgroundColor: Colors.white,
     padding: 16,
     borderRadius: 12,
     marginBottom: 8,
+    shadowColor: Colors.primary,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
   },
   transactionDetails: {
     flex: 1,
     marginLeft: 12,
   },
   transactionTitle: {
-    color: Colors.white,
+    color: Colors.primary,
     fontSize: 16,
   },
   transactionDate: {
-    color: Colors.white,
+    color: Colors.primary,
     opacity: 0.8,
     fontSize: 12,
   },
   transactionAmount: {
-    color: Colors.white,
+    color: Colors.primary,
     fontSize: 16,
     fontWeight: "bold",
   },
@@ -183,14 +196,14 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.primary,
     padding: 16,
     borderRadius: 12,
     marginTop: 8,
     marginBottom: 16,
   },
   addButtonText: {
-    color: Colors.primary,
+    color: Colors.white,
     fontSize: 16,
     fontWeight: "bold",
     marginLeft: 8,
